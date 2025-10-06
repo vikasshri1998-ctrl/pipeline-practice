@@ -17,9 +17,7 @@ jobs:
     inputs:
       terraformVersion: 'latest'
 
-- job: terraform_init
-  displayName: terraform-provider
-  steps:
+
   - task: TerraformTask@5
     inputs:
       provider: 'azurerm'
@@ -30,10 +28,7 @@ jobs:
       backendAzureRmKey: 'pipeline/terraform.tfstate'
 
 
-- job: terraform_apply
-  displayName: terradorm-resource
-  dependsOn: terraform_init
-  steps:
+
   - task: TerraformTask@5
     inputs:
       provider: 'azurerm'
