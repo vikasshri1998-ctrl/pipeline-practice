@@ -38,3 +38,4 @@ jobs:
       inputs:
         provider: 'azurerm'
         command: 'plan'
+        environmentServiceNameAzureRM: 'pipeline-service-connection'
