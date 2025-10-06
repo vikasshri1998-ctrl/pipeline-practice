@@ -5,19 +5,20 @@ name: resource-group-name
 resources:
   repositories:
   - repository: pipeline-practice
-    type: git
-    name: pipeline-practice
+    type: github
+    name: vikasshri1998-ctrl/pipeline-practice
+    endpoint: vikasshri1998-ctrl
 
 jobs:
 - job: installation
-  displayName: terradorm-install
+  displayName: terraform-install
   steps:
   - task: TerraformInstaller@1
     inputs:
       terraformVersion: 'latest'
 
-- job: terraform-init
-  displayName: terradorm-provider
+- job: terraform_init
+  displayName: terraform-provider
   steps:
   - task: TerraformTask@5
     inputs:
@@ -29,9 +30,9 @@ jobs:
       backendAzureRmKey: 'pipeline/terraform.tfstate'
 
 
-- job: terraform-apply
+- job: terraform_apply
   displayName: terradorm-resource
-  dependsOn: terraform-init
+  dependsOn: terraform_init
   steps:
     - task: TerraformTask@5
       inputs:
