@@ -34,8 +34,8 @@ jobs:
   displayName: terradorm-resource
   dependsOn: terraform_init
   steps:
-    - task: TerraformTask@5
-      inputs:
-        provider: 'azurerm'
-        command: 'plan'
-        environmentServiceNameAzureRM: 'pipeline-service-connection'
+  - task: TerraformTask@5
+    inputs:
+      provider: 'azurerm'
+      command: 'apply'
+      environmentServiceNameAzureRM: 'pipeline-service-connection'
