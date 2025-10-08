@@ -1,5 +1,5 @@
 module "vnet11" {
-    source = "./pipeline-practice/Vnet"
+    source = "./child_module/Vnet"
     name = "tutu_vnet"
     resource_group_name = "devv-rgg-01"
     location = "westus"
@@ -7,7 +7,7 @@ module "vnet11" {
 }
 module "subnet11" {
     for_each = var.subbu
-    source = "./pipeline-practice/SUBNET"
+    source = "./child_module/SUBNET"
     name = each.key
     resource_group_name = "devv-rgg-01"
     virtual_network_name = module.vnet11.name
@@ -16,14 +16,14 @@ module "subnet11" {
 }
 module "nsg11" {
 
-    source = "./pipeline-practice/NSG"
+    source = "./child_module/NSG"
     name = "tutu_nsg"
     resource_group_name = "devv-rgg-01"
     location = "westus"
   
 }
 module "nic11" {
-    source = "./pipeline-practice/NIC"
+    source = "./child_module/NIC"
     name = "tutu_nic"
     resource_group_name = "devv-rgg-01"
     location = "westus"
@@ -32,13 +32,13 @@ module "nic11" {
     public_ip_id = module.pip11.id
 }
 module "pip11" {
-    source = "./pipeline-practice/Public_ip"
+    source = "./child_module/Public_ip"
     name = "tutu_pip"
     resource_group_name = "devv-rgg-01"
     location = "westus"
 }
 module "vm11" {
-    source = "./pipeline-practice/VM"
+    source = "./child_module/VM"
     name = "tutu_vm"
     resource_group_name = "devv-rgg-01"
     location = "westus"
