@@ -1,0 +1,36 @@
+trigger: none
+
+pool: pipeline-ka-raja
+name: resource-group-name
+resources:
+  repositories:
+  - repository: pipeline-practice
+    type: github
+    name: vikasshri1998-ctrl/pipeline-practice
+    endpoint: vikasshri1998-ctrl
+
+jobs:
+- job: installation
+  displayName: terraform-install
+  steps:
+  - task: TerraformInstaller@1
+    inputs:
+      terraformVersion: 'latest'
+
+
+  - task: TerraformTask@5
+    inputs:
+      provider: 'azurerm'
+      command: 'init'
+      backendServiceArm: 'pipeline-service-connection'
+      backendAzureRmStorageAccountName: 'pipelinestg'
+      backendAzureRmContainerName: 'pipeline'
+      backendAzureRmKey: 'pipeline/terraform.tfstate'
+
+
+
+  - task: TerraformTask@5
+    inputs:
+      provider: 'azurerm'
+      command: 'apply'
+      environmentServiceNameAzureRM: 'pipeline-service-connection'
