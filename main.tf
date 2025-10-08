@@ -28,7 +28,7 @@ module "nic11" {
     resource_group_name = "devv-rgg-01"
     location = "westus"
     ip_config_name = "tutu_ip"
-    subnet_id = module.subnet11[tutu_subnet_01].id
+    subnet_id = module.subnet11["tutu_subnet_01"].id
     public_ip_id = module.pip11.id
 }
 module "pip11" {
