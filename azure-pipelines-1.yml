@@ -1,0 +1,38 @@
+trigger : none
+pool: pipeline-ka-raja
+resources:
+  repositories:
+  - repository: pipeline-practice
+    type: github
+    name: vikasshri1998-ctrl/pipeline-practice
+    endpoint: vikasshri1998-ctrl
+jobs:
+- job: vm_create_krna
+  displayName: vm_create_ho_rhi_hai
+  steps:
+  - task: TerraformInstaller@1
+    inputs:
+      terraformVersion: 'latest'
+
+  - task: TerraformTask@5
+    inputs:
+      provider: 'azurerm'
+      command: 'init'
+      backendServiceArm: 'pipeline-service-connection'
+      backendAzureRmStorageAccountName: 'pipelinestg'
+      backendAzureRmContainerName: 'pipeline'
+      backendAzureRmKey: 'pipeline/terraform.tfstate'
+  - task: TerraformTask@5
+    inputs:
+      provider: 'azurerm'
+      command: 'validate'
+  - task: TerraformTask@5
+    inputs:
+      provider: 'azurerm'
+      command: 'plan'
+      environmentServiceNameAzureRM: 'pipeline-service-connection'
+  - task: TerraformTask@5
+    inputs:
+      provider: 'azurerm'
+      command: 'apply'
+      environmentServiceNameAzureRM: 'pipeline-service-connection'
