@@ -2,9 +2,9 @@ trigger : none
 pool: pipeline-ka-raja
 resources:
   repositories:
-  - repository: pipeline-practice
+  - repository: hcl_yaml_practice
     type: github
-    name: vikasshri1998-ctrl/pipeline-practice
+    name: vikasshri1998-ctrl/hcl_yaml_practice
     endpoint: vikasshri1998-ctrl
 jobs:
 - job: vm_create_krna
