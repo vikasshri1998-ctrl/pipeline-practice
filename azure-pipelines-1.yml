@@ -13,11 +13,11 @@ jobs:
   - task: TerraformInstaller@1
     inputs:
       terraformVersion: 'latest'
-
   - task: TerraformTask@5
     inputs:
       provider: 'azurerm'
       command: 'init'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/parent_module'
       backendServiceArm: 'pipeline-service-connection'
       backendAzureRmStorageAccountName: 'pipelinestg'
       backendAzureRmContainerName: 'pipeline'
@@ -26,13 +26,16 @@ jobs:
     inputs:
       provider: 'azurerm'
       command: 'validate'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/parent_module'
   - task: TerraformTask@5
     inputs:
       provider: 'azurerm'
       command: 'plan'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/parent_module'
       environmentServiceNameAzureRM: 'pipeline-service-connection'
   - task: TerraformTask@5
     inputs:
       provider: 'azurerm'
       command: 'apply'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/parent_module'
       environmentServiceNameAzureRM: 'pipeline-service-connection'
