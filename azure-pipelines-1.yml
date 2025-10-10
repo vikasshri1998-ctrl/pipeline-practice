@@ -1,18 +1,27 @@
-trigger : none
+trigger: none
 pool: pipeline-ka-raja
+
+# ✅ Checkout with submodules enabled
+
+
 resources:
   repositories:
   - repository: hcl_yaml_practice
     type: github
     name: vikasshri1998-ctrl/hcl_yaml_practice
     endpoint: vikasshri1998-ctrl
+
 jobs:
 - job: vm_create_krna
   displayName: vm_create_ho_rhi_hai
   steps:
+  - checkout: self
+    submodules: true
+    persistCredentials: true
   - task: TerraformInstaller@1
     inputs:
       terraformVersion: '4.47.0'
+
   - task: TerraformTask@5
     inputs:
       provider: 'azurerm'
@@ -22,17 +31,20 @@ jobs:
       backendAzureRmStorageAccountName: 'pipelinestg'
       backendAzureRmContainerName: 'pipeline'
       backendAzureRmKey: 'pipeline/terraform.tfstate'
+
   - task: TerraformTask@5
     inputs:
       provider: 'azurerm'
       command: 'validate'
       workingDirectory: '$(System.DefaultWorkingDirectory)/hcl_yaml_practice/parent_module'
+
   - task: TerraformTask@5
     inputs:
       provider: 'azurerm'
       command: 'plan'
       workingDirectory: '$(System.DefaultWorkingDirectory)/hcl_yaml_practice/parent_module'
       environmentServiceNameAzureRM: 'pipeline-service-connection'
+
   - task: TerraformTask@5
     inputs:
       provider: 'azurerm'
