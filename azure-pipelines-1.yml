@@ -12,7 +12,7 @@ jobs:
   steps:
   - task: TerraformInstaller@1
     inputs:
-      terraformVersion: '1.7.5'
+      terraformVersion: '4.47.0'
   - task: TerraformTask@5
     inputs:
       provider: 'azurerm'
